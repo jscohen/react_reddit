@@ -13,6 +13,7 @@ class Posts extends Component {
   this.state = {
     name: "",
     body: "",
+    title: ""
   }
 }
 
@@ -30,12 +31,6 @@ bodyChange (e) {
   })
 }
 
-addComment(e) {
-  e.preventDefault()
-  const author = this.state.author
-  const body = this.state.body
-}
-
   render() {
     return (
       <div className="Posts">
@@ -44,17 +39,15 @@ addComment(e) {
       <em>{this.props.body}</em>
       <p>{this.props.num}</p>
       <p>Add Comment:</p>
-      <form>
         <input type="text"
          placeholder="Enter Your Name"
          onChange={(e) => this.nameChange(e)}
          />
-         < br />
+         <br />
          <textarea type="text" placeholder="Whats up?"
          onChange={(e) => this.bodyChange(e)}
          />
-   <button onClick={(e) => this.addComment(e)}>Add Comment</button>
-    </form>
+        <button onClick={(e) => this.addComment(e)}>Add Comment</button>
       </div>
     );
   }
