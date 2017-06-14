@@ -1,7 +1,5 @@
 const posts = {
-  user: '',
-  title: '',
-  body: ''
+  array: []
 }
 
 module.exports = posts

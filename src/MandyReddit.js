@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 import Post from './Posts';
 import newPosts from './newPosts';
+import { CSSTransitionGroup } from 'react-transition-group' // ES6
+import './Posts.css';
 
 class MandyReddit extends Component {
     constructor (props) {
@@ -16,11 +18,7 @@ class MandyReddit extends Component {
       name: "",
       body: "",
       title: "",
-      posts: [{
-        name: this.name,
-        body: this.body,
-        title: this.title
-      }]
+      posts: newPosts.array
     }
   }
 
@@ -55,12 +53,20 @@ class MandyReddit extends Component {
       title: title,
       body: body
     }
-    const arr = this.state.posts
-    arr.push(post)
-    console.log(arr)
+    // const arr = this.state.posts
+    // arr.push(post)
+    // console.log(arr)
+    // this.setState({
+    //   posts: arr
+    // })
+    newPosts.array.push(post)
+    this.setState({
+      posts: newPosts.array
+    })
   }
 
   render () {
+
     const mandyPosts = this.props.posts.map( (user, index, title, body) => (
       <Post author={this.props.posts[index].user} num={index} title={this.props.posts[index].title}
       body={this.props.posts[index].body}
@@ -74,8 +80,15 @@ class MandyReddit extends Component {
     return (
       <div>
         <h1>Mandys Reddit</h1>
+        <div className="jumbotron">
+        </div>
         {mandyPosts}
+        <CSSTransitionGroup
+         transitionName="post"
+         transitionEnterTimeout={500}
+         transitionLeaveTimeout={300}>
         {newPosts}
+        </CSSTransitionGroup>
         <h1>Add a post</h1>
         <form>
           <input type="text"
@@ -91,8 +104,8 @@ class MandyReddit extends Component {
            <textarea type="text" placeholder="Whats up?"
            onChange={(e) => this.postBodyChange(e)}
            />
+           </form>
      <button onClick={(e) => this.addPost(e)}>Post!</button>
-      </form>
       </div>
     )
   }
